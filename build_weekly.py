@@ -706,6 +706,62 @@ GLOSSARIES = {
 }
 
 
+# ============================================================ REFERENCES
+# Full citations per week (ASCII; the weekly Beamer decks have no Unicode header).
+REFERENCES = {
+ "week01_introduction": [
+   "Avellaneda, M., & Stoikov, S. (2008). High-frequency trading in a limit order book. Quantitative Finance, 8(3), 217-224.",
+   "Gueant, O. (2016). The Financial Mathematics of Market Liquidity. Chapman & Hall/CRC.",
+   "Cartea, A., Jaikumar, S., & Penalva, J. (2015). Algorithmic and High-Frequency Trading. Cambridge Univ. Press.",
+   "Coincall API documentation. https://docs.coincall.com/"],
+ "week02_microstructure": [
+   "Roll, R. (1984). A simple implicit measure of the effective bid-ask spread. Journal of Finance, 39(4), 1127-1139.",
+   "Glosten, L. R., & Milgrom, P. R. (1985). Bid, ask and transaction prices in a specialist market. J. Financial Economics, 14(1), 71-100.",
+   "Kyle, A. S. (1985). Continuous auctions and insider trading. Econometrica, 53(6), 1315-1335.",
+   "O'Hara, M. (1995). Market Microstructure Theory. Blackwell.",
+   "Cartea, Jaikumar, & Penalva (2015). Algorithmic and High-Frequency Trading, Ch. 1-3."],
+ "week03_avellaneda_stoikov": [
+   "Avellaneda, M., & Stoikov, S. (2008). High-frequency trading in a limit order book. Quantitative Finance, 8(3), 217-224.",
+   "Gueant, O. (2016). The Financial Mathematics of Market Liquidity, Ch. 4. Chapman & Hall/CRC.",
+   "Cartea, Jaikumar, & Penalva (2015). Algorithmic and High-Frequency Trading, Ch. 10."],
+ "week04_control": [
+   "Pham, H. (2009). Continuous-time Stochastic Control and Optimization with Financial Applications. Springer.",
+   "Fleming, W. H., & Soner, H. M. (2006). Controlled Markov Processes and Viscosity Solutions (2nd ed.). Springer.",
+   "Oksendal, B. (2003). Stochastic Differential Equations (6th ed.). Springer.",
+   "Almgren, R., & Chriss, N. (2001). Optimal execution of portfolio transactions. Journal of Risk, 3(2), 5-40."],
+ "week05_engine_milestone1": [
+   "Avellaneda, M., & Stoikov, S. (2008). High-frequency trading in a limit order book. Quantitative Finance, 8(3), 217-224.",
+   "Gueant, O. (2016). The Financial Mathematics of Market Liquidity, Ch. 4. Chapman & Hall/CRC.",
+   "Cartea, Jaikumar, & Penalva (2015). Algorithmic and High-Frequency Trading, Ch. 10.",
+   "Coincall API documentation. https://docs.coincall.com/"],
+ "week06_vol_surface": [
+   "Gatheral, J. (2006). The Volatility Surface: A Practitioner's Guide. Wiley.",
+   "Gatheral, J., & Jacquier, A. (2014). Arbitrage-free SVI volatility surfaces. Quantitative Finance, 14(1), 59-71.",
+   "Hagan, P. S., Kumar, D., Lesniewski, A. S., & Woodward, D. E. (2002). Managing smile risk. Wilmott Magazine, Sept., 84-108.",
+   "Hull, J. C. (2021). Options, Futures, and Other Derivatives (11th ed.). Pearson."],
+ "week07_fast_computation_milestone2": [
+   "Carr, P., & Madan, D. (1999). Option valuation using the fast Fourier transform. J. Computational Finance, 2(4), 61-73.",
+   "Fang, F., & Oosterlee, C. W. (2008). A novel pricing method for European options based on Fourier-cosine series expansions. SIAM J. Sci. Comput., 31(2), 826-848.",
+   "Jackel, P. (2015). Let's be rational. Wilmott Magazine.",
+   "Jakob, W., Rhinelander, J., & Moldovan, D. (2017). pybind11. https://github.com/pybind/pybind11",
+   "Paszke, A., et al. (2019). PyTorch: an imperative style, high-performance deep learning library. NeurIPS."],
+ "week08_options_mm_hedging": [
+   "El Aoud, S., & Abergel, F. (2015). A stochastic control approach to option market making. Market Microstructure and Liquidity, 1(1), 1550006.",
+   "Taleb, N. N. (1997). Dynamic Hedging: Managing Vanilla and Exotic Options. Wiley.",
+   "Cartea, Jaikumar, & Penalva (2015). Algorithmic and High-Frequency Trading, Ch. 11."],
+ "week09_backtesting_taker_milestone3": [
+   "Cartea, Jaikumar, & Penalva (2015). Algorithmic and High-Frequency Trading, Ch. 10-11.",
+   "Bailey, D. H., & Lopez de Prado, M. (2014). The deflated Sharpe ratio. Journal of Portfolio Management, 40(5), 94-107.",
+   "Lopez de Prado, M. (2018). Advances in Financial Machine Learning. Wiley.",
+   "Coincall API documentation. https://docs.coincall.com/"],
+ "week10_advanced_structured_products": [
+   "Gueant, O. (2016). The Financial Mathematics of Market Liquidity. Chapman & Hall/CRC.",
+   "El Aoud, S., & Abergel, F. (2015). A stochastic control approach to option market making. Market Microstructure and Liquidity, 1(1), 1550006.",
+   "Cartea, Jaikumar, & Penalva (2015). Algorithmic and High-Frequency Trading.",
+   "Plus one paper of your choice relevant to the chosen extension."],
+}
+
+
 # ============================================================ PPTX RENDER
 def _set(run, size, color, bold=False, italic=False, mono=False):
     run.font.name = "Consolas" if mono else FONT
@@ -810,6 +866,8 @@ def build_pptx(w):
     if w["stem"] in GLOSSARIES:
         _gloss_slide(prs, GLOSSARIES[w["stem"]])
     _bullet_slide(prs, "Reading", w["reading"])
+    if w["stem"] in REFERENCES:
+        _bullet_slide(prs, "References", REFERENCES[w["stem"]], small=True)
     prs.save(os.path.join(OUT, w["stem"] + ".pptx"))
 
 
@@ -900,6 +958,13 @@ def build_beamer_tex(w):
         L.append(r"\begin{frame}{Glossary --- Key Terms}" + "\n"
                  + "\n".join(gl) + "\n\\end{frame}\n")
     L.append(frame("Reading", itemize(w["reading"])))
+    # references (full citations)
+    if w["stem"] in REFERENCES:
+        rf = [r"\scriptsize\begin{itemize}\setlength{\itemsep}{3pt}"]
+        for c in REFERENCES[w["stem"]]:
+            rf.append(r"  \item %s" % esc(c))
+        rf.append(r"\end{itemize}")
+        L.append(r"\begin{frame}{References}" + "\n" + "\n".join(rf) + "\n\\end{frame}\n")
     L.append(r"\end{document}")
     open(os.path.join(OUT, w["stem"] + ".tex"), "w", encoding="utf-8").write("\n".join(L))
 

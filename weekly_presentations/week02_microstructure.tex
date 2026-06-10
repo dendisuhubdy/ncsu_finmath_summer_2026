@@ -91,6 +91,18 @@ def l2_top_of_book(symbol, key, secret):
 #   book["mid"] = 0.5 * (book.bid_px_0 + book.ask_px_0)
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Limit order book (LOB)] all resting limit orders organized by price level
+\item[\color{ncsured}L1 / L2 / L3] top-of-book / aggregated depth / per-order; Coincall provides L2 only
+\item[\color{ncsured}Mid-price] the average of the best bid and best ask
+\item[\color{ncsured}Adverse selection] loss from trading against better-informed counterparties
+\item[\color{ncsured}Effective spread] actual cost relative to mid (estimated by the Roll measure)
+\item[\color{ncsured}Price impact] how far the mid moves in the direction of an incoming trade
+\item[\color{ncsured}Order-flow toxicity] the degree to which incoming flow is informed
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Cartea-Jaikumar-Penalva, Ch. 1-3; Roll (1984); Glosten-Milgrom (1985)

@@ -85,6 +85,18 @@ S = np.linspace(60, 140, 9)
 print(dict(zip(S.round(0), collar_payoff(S).round(1))))   # capped above, floored below
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Multi-asset market making] jointly quoting correlated underlyings (e.g., BTC and ETH)
+\item[\color{ncsured}Robust optimization] optimizing against the worst case over an uncertainty set
+\item[\color{ncsured}Adverse-selection-aware quoting] skewing quotes using order-flow signals
+\item[\color{ncsured}Collar] long put + short call that fixes a price band around a holding
+\item[\color{ncsured}Accumulator / decumulator] products for staged accumulation or liquidation
+\item[\color{ncsured}Coupon product] a yield-enhancement structured note
+\item[\color{ncsured}Structured product] a packaged derivative payoff sold to clients or corporates
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Gueant (2016) [chosen extension]; El Aoud-Abergel (2015); +1 paper of your choice

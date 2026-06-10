@@ -128,6 +128,18 @@ print("inventory ->", q.tolist())
 print("bid       ->", bid.round(decimals=2).tolist())
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Reservation price] inventory-adjusted indifference price that quotes are centered on
+\item[\color{ncsured}Half-spread] distance from the reservation price to each quote
+\item[\color{ncsured}HJB equation] the PDE characterizing the optimal value function
+\item[\color{ncsured}Ansatz] an assumed functional form that reduces the HJB to ODEs
+\item[\color{ncsured}CARA utility] constant absolute risk aversion, U(w) = -exp(-gamma w)
+\item[\color{ncsured}Intensity lambda(delta)] Poisson fill rate as a function of quote distance delta
+\item[\color{ncsured}Risk aversion gamma] parameter setting inventory skew and spread width
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Avellaneda-Stoikov (2008); Cartea-Jaikumar-Penalva, Ch. 10

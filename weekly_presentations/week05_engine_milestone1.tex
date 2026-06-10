@@ -96,6 +96,18 @@ for step in range(2000):
 print("A =", torch.exp(logA).item(), " kappa =", kappa.item())
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Maximum likelihood (MLE)] fitting parameters by maximizing the likelihood of the data
+\item[\color{ncsured}Poisson process] counting process for random arrivals (here, fills)
+\item[\color{ncsured}Goodness-of-fit (chi-square)] a statistic measuring how well the fit matches the data
+\item[\color{ncsured}Backtest] simulation of a strategy on historical data
+\item[\color{ncsured}Fill simulator] model of which of the maker's quotes get executed
+\item[\color{ncsured}P\&L attribution] decomposition of profit into its sources
+\item[\color{ncsured}Reproducibility] identical results on re-run under a fixed random seed
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Avellaneda-Stoikov (2008) [implementation]; Gueant (2016), Ch. 4

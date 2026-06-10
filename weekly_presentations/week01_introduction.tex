@@ -150,6 +150,18 @@ def signed_get(path, params=None, api_key="", api_secret=""):
 print(signed_get("/open/option/getInstruments/BTC"))
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Market maker] liquidity provider that continuously quotes bid and ask, earning the spread
+\item[\color{ncsured}Taker] participant that crosses the spread for immediate execution
+\item[\color{ncsured}Bid-ask spread] best ask minus best bid; the maker's revenue and risk premium
+\item[\color{ncsured}Inventory] the maker's net position; the main source of risk
+\item[\color{ncsured}Milestone] graded software deliverable, due in Weeks 5, 7, and 9
+\item[\color{ncsured}PyTorch / autograd] Python ML library; automatic differentiation computes Greeks for you
+\item[\color{ncsured}pybind11] library that exposes C++ functions to Python (used in Week 7)
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Cartea-Jaikumar-Penalva, Ch. 1; Avellaneda-Stoikov (2008) -- skim

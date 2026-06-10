@@ -95,6 +95,18 @@ def delta_hedge(net_delta, perp_pos, threshold=0.1):
     return perp_pos, torch.tensor(0.0)
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Greek inventory vector] aggregated (delta, gamma, vega, ...) exposure of the book
+\item[\color{ncsured}Quadratic penalty] the risk term (1/2) q\textasciicircum{}T Sigma q on the Greek vector
+\item[\color{ncsured}Delta hedging] neutralizing directional risk using the underlying or a perpetual
+\item[\color{ncsured}Gamma scalping] P\&L earned by re-hedging a long-gamma position
+\item[\color{ncsured}Gamma-theta-variance identity] hedged P\&L = (1/2) Gamma S\textasciicircum{}2 (realized var - implied var) dt
+\item[\color{ncsured}Funding rate] periodic payment between perpetual-swap longs and shorts
+\item[\color{ncsured}El Aoud-Abergel] the multi-Greek option market-making framework
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item El Aoud-Abergel (2015); Taleb (1997); Cartea et al., Ch. 11

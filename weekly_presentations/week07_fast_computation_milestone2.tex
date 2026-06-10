@@ -102,6 +102,18 @@ py::array_t<double> price_surface(py::array_t<double> K, double S,
 PYBIND11_MODULE(fastmm, m) { m.def("price_surface", &price_surface); }
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Characteristic function] the Fourier transform of the log-return density
+\item[\color{ncsured}COS method] Fourier-cosine series option pricing (Fang-Oosterlee)
+\item[\color{ncsured}Carr-Madan] FFT-based option pricing via a damped payoff
+\item[\color{ncsured}Implied-vol inversion] solving for the IV that reproduces a price (safeguarded Newton)
+\item[\color{ncsured}pybind11] header-only C++ \textless{}-\textgreater{} Python binding
+\item[\color{ncsured}GIL] Python's Global Interpreter Lock; released around the C++ hot loop
+\item[\color{ncsured}Latency budget] the maximum allowed time (sub-5 ms full-surface revaluation)
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Carr-Madan (1999); Fang-Oosterlee (2008); Jaeckel (2015); pybind11 docs

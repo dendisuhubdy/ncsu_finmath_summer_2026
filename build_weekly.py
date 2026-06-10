@@ -620,6 +620,92 @@ print(dict(zip(S.round(0), collar_payoff(S).round(1))))   # capped above, floore
 ))
 
 
+# ============================================================ GLOSSARIES
+# ASCII-only (the weekly Beamer decks compile without a Unicode header).
+GLOSSARIES = {
+ "week01_introduction": [
+   ("Market maker", "liquidity provider that continuously quotes bid and ask, earning the spread"),
+   ("Taker", "participant that crosses the spread for immediate execution"),
+   ("Bid-ask spread", "best ask minus best bid; the maker's revenue and risk premium"),
+   ("Inventory", "the maker's net position; the main source of risk"),
+   ("Milestone", "graded software deliverable, due in Weeks 5, 7, and 9"),
+   ("PyTorch / autograd", "Python ML library; automatic differentiation computes Greeks for you"),
+   ("pybind11", "library that exposes C++ functions to Python (used in Week 7)")],
+ "week02_microstructure": [
+   ("Limit order book (LOB)", "all resting limit orders organized by price level"),
+   ("L1 / L2 / L3", "top-of-book / aggregated depth / per-order; Coincall provides L2 only"),
+   ("Mid-price", "the average of the best bid and best ask"),
+   ("Adverse selection", "loss from trading against better-informed counterparties"),
+   ("Effective spread", "actual cost relative to mid (estimated by the Roll measure)"),
+   ("Price impact", "how far the mid moves in the direction of an incoming trade"),
+   ("Order-flow toxicity", "the degree to which incoming flow is informed")],
+ "week03_avellaneda_stoikov": [
+   ("Reservation price", "inventory-adjusted indifference price that quotes are centered on"),
+   ("Half-spread", "distance from the reservation price to each quote"),
+   ("HJB equation", "the PDE characterizing the optimal value function"),
+   ("Ansatz", "an assumed functional form that reduces the HJB to ODEs"),
+   ("CARA utility", "constant absolute risk aversion, U(w) = -exp(-gamma w)"),
+   ("Intensity lambda(delta)", "Poisson fill rate as a function of quote distance delta"),
+   ("Risk aversion gamma", "parameter setting inventory skew and spread width")],
+ "week04_control": [
+   ("Stochastic optimal control", "choosing controls to optimize an expected objective under randomness"),
+   ("Dynamic programming principle", "an optimal policy stays optimal from every later state"),
+   ("Value function", "the best achievable expected reward from a given state onward"),
+   ("Infinitesimal generator", "operator giving the expected instantaneous change of a function"),
+   ("Verification theorem", "conditions under which an HJB solution is the value function"),
+   ("CRRA utility", "constant relative risk aversion; the policy scales with wealth"),
+   ("Admissible control", "a control satisfying the problem's constraints")],
+ "week05_engine_milestone1": [
+   ("Maximum likelihood (MLE)", "fitting parameters by maximizing the likelihood of the data"),
+   ("Poisson process", "counting process for random arrivals (here, fills)"),
+   ("Goodness-of-fit (chi-square)", "a statistic measuring how well the fit matches the data"),
+   ("Backtest", "simulation of a strategy on historical data"),
+   ("Fill simulator", "model of which of the maker's quotes get executed"),
+   ("P&L attribution", "decomposition of profit into its sources"),
+   ("Reproducibility", "identical results on re-run under a fixed random seed")],
+ "week06_vol_surface": [
+   ("Implied volatility", "the volatility that matches the market option price under Black-Scholes"),
+   ("Volatility smile", "implied volatility as a function of strike / moneyness"),
+   ("SVI", "Stochastic Volatility Inspired parameterization of total variance"),
+   ("SABR", "stochastic alpha-beta-rho model with the Hagan implied-vol expansion"),
+   ("Greeks", "price sensitivities: delta, gamma, vega, theta, rho"),
+   ("Vanna / Volga", "second-order Greeks: d vega / dS and d vega / d sigma"),
+   ("Calendar / butterfly arbitrage", "no-arbitrage constraints the surface must satisfy")],
+ "week07_fast_computation_milestone2": [
+   ("Characteristic function", "the Fourier transform of the log-return density"),
+   ("COS method", "Fourier-cosine series option pricing (Fang-Oosterlee)"),
+   ("Carr-Madan", "FFT-based option pricing via a damped payoff"),
+   ("Implied-vol inversion", "solving for the IV that reproduces a price (safeguarded Newton)"),
+   ("pybind11", "header-only C++ <-> Python binding"),
+   ("GIL", "Python's Global Interpreter Lock; released around the C++ hot loop"),
+   ("Latency budget", "the maximum allowed time (sub-5 ms full-surface revaluation)")],
+ "week08_options_mm_hedging": [
+   ("Greek inventory vector", "aggregated (delta, gamma, vega, ...) exposure of the book"),
+   ("Quadratic penalty", "the risk term (1/2) q^T Sigma q on the Greek vector"),
+   ("Delta hedging", "neutralizing directional risk using the underlying or a perpetual"),
+   ("Gamma scalping", "P&L earned by re-hedging a long-gamma position"),
+   ("Gamma-theta-variance identity", "hedged P&L = (1/2) Gamma S^2 (realized var - implied var) dt"),
+   ("Funding rate", "periodic payment between perpetual-swap longs and shorts"),
+   ("El Aoud-Abergel", "the multi-Greek option market-making framework")],
+ "week09_backtesting_taker_milestone3": [
+   ("Event-driven backtest", "a simulation that replays timestamped events in order"),
+   ("Deterministic replay", "bitwise-identical results on re-run"),
+   ("Look-ahead bias", "using information not available at decision time"),
+   ("Sharpe ratio", "risk-adjusted return: annualized mean over standard deviation"),
+   ("Block bootstrap", "resampling blocks of returns for a CI that keeps autocorrelation"),
+   ("Maximum drawdown", "the largest peak-to-trough decline in equity"),
+   ("Taker strategy", "aggressive, spread-crossing execution")],
+ "week10_advanced_structured_products": [
+   ("Multi-asset market making", "jointly quoting correlated underlyings (e.g., BTC and ETH)"),
+   ("Robust optimization", "optimizing against the worst case over an uncertainty set"),
+   ("Adverse-selection-aware quoting", "skewing quotes using order-flow signals"),
+   ("Collar", "long put + short call that fixes a price band around a holding"),
+   ("Accumulator / decumulator", "products for staged accumulation or liquidation"),
+   ("Coupon product", "a yield-enhancement structured note"),
+   ("Structured product", "a packaged derivative payoff sold to clients or corporates")],
+}
+
+
 # ============================================================ PPTX RENDER
 def _set(run, size, color, bold=False, italic=False, mono=False):
     run.font.name = "Consolas" if mono else FONT
@@ -689,6 +775,22 @@ def _code_slide(prs, caption, code):
         p.space_after = Pt(0)
 
 
+def _gloss_slide(prs, terms):
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    s.shapes.add_picture(LOGO, Inches(10.7), Inches(0.3), width=Inches(2.2))
+    hb = s.shapes.add_textbox(Inches(0.5), Inches(0.5), Inches(9.8), Inches(0.9))
+    r = hb.text_frame.paragraphs[0].add_run(); r.text = "Glossary — Key Terms"; _set(r, 24, DKRED, bold=True)
+    rule = s.shapes.add_shape(1, Inches(0.5), Inches(1.5), Inches(12.3), Pt(2.2))
+    rule.fill.solid(); rule.fill.fore_color.rgb = RED; rule.line.fill.background()
+    bb = s.shapes.add_textbox(Inches(0.7), Inches(1.75), Inches(12.0), Inches(5.4))
+    tf = bb.text_frame; tf.word_wrap = True
+    for i, (term, defn) in enumerate(terms):
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        rt = p.add_run(); rt.text = term + " — "; _set(rt, 15, RED, bold=True)
+        rd = p.add_run(); rd.text = defn; _set(rd, 15, BLACK)
+        p.space_after = Pt(7)
+
+
 def build_pptx(w):
     prs = Presentation(); prs.slide_width = SW; prs.slide_height = SH
     _title_slide(prs, w)
@@ -705,6 +807,8 @@ def build_pptx(w):
     _bullet_slide(prs, "Getting the Data from Coincall", w["data"],
                   sub="Cross-check exact paths at https://docs.coincall.com/", small=True)
     _code_slide(prs, w["code"][0], w["code"][1])
+    if w["stem"] in GLOSSARIES:
+        _gloss_slide(prs, GLOSSARIES[w["stem"]])
     _bullet_slide(prs, "Reading", w["reading"])
     prs.save(os.path.join(OUT, w["stem"] + ".pptx"))
 
@@ -787,6 +891,14 @@ def build_beamer_tex(w):
     L.append(r"\begin{frame}[fragile]{Code --- %s}" % esc(w["code"][0].split(" -- ")[0]))
     L.append(r"\begin{lstlisting}" + "\n" + w["code"][1].strip("\n") + "\n" + r"\end{lstlisting}")
     L.append(r"\end{frame}")
+    # glossary
+    if w["stem"] in GLOSSARIES:
+        gl = [r"\footnotesize\begin{description}"]
+        for term, defn in GLOSSARIES[w["stem"]]:
+            gl.append(r"\item[\color{ncsured}%s] %s" % (esc(term), esc(defn)))
+        gl.append(r"\end{description}")
+        L.append(r"\begin{frame}{Glossary --- Key Terms}" + "\n"
+                 + "\n".join(gl) + "\n\\end{frame}\n")
     L.append(frame("Reading", itemize(w["reading"])))
     L.append(r"\end{document}")
     open(os.path.join(OUT, w["stem"] + ".tex"), "w", encoding="utf-8").write("\n".join(L))

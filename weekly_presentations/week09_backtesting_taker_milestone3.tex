@@ -94,6 +94,18 @@ def bootstrap_sharpe(r, block=5, n=2000, seed=0):
     return np.percentile(out, [2.5, 50, 97.5])               # CI for the Sharpe
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Event-driven backtest] a simulation that replays timestamped events in order
+\item[\color{ncsured}Deterministic replay] bitwise-identical results on re-run
+\item[\color{ncsured}Look-ahead bias] using information not available at decision time
+\item[\color{ncsured}Sharpe ratio] risk-adjusted return: annualized mean over standard deviation
+\item[\color{ncsured}Block bootstrap] resampling blocks of returns for a CI that keeps autocorrelation
+\item[\color{ncsured}Maximum drawdown] the largest peak-to-trough decline in equity
+\item[\color{ncsured}Taker strategy] aggressive, spread-crossing execution
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Cartea et al., Ch. 10-11; Bailey-Lopez de Prado (2014); Lopez de Prado (2018)

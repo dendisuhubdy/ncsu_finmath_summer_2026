@@ -99,6 +99,18 @@ volga, = torch.autograd.grad(vega, sig)                    # d vega / d sig
 print(float(price), float(vega), float(vanna), float(volga))
 \end{lstlisting}
 \end{frame}
+\begin{frame}{Glossary --- Key Terms}
+\footnotesize\begin{description}
+\item[\color{ncsured}Implied volatility] the volatility that matches the market option price under Black-Scholes
+\item[\color{ncsured}Volatility smile] implied volatility as a function of strike / moneyness
+\item[\color{ncsured}SVI] Stochastic Volatility Inspired parameterization of total variance
+\item[\color{ncsured}SABR] stochastic alpha-beta-rho model with the Hagan implied-vol expansion
+\item[\color{ncsured}Greeks] price sensitivities: delta, gamma, vega, theta, rho
+\item[\color{ncsured}Vanna / Volga] second-order Greeks: d vega / dS and d vega / d sigma
+\item[\color{ncsured}Calendar / butterfly arbitrage] no-arbitrage constraints the surface must satisfy
+\end{description}
+\end{frame}
+
 \begin{frame}{Reading}
 \begin{itemize}
   \item Gatheral (2006), Ch. 1-5; Gatheral-Jacquier (2014); Hagan et al. (2002)

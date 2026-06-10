@@ -847,9 +847,27 @@ def _gloss_slide(prs, terms):
         p.space_after = Pt(7)
 
 
+def deck_outline(w):
+    items = ["Learning objectives", w["lec1"][0], w["lec2"][0]]
+    for head, _ in w.get("extra", []):
+        items.append(head)
+    items.append("Illustration")
+    if w.get("math"):
+        items.append("Derivation & rationale")
+    items.append("Getting the data from Coincall")
+    items.append("Code: " + w["code"][0].split(" -- ")[0])
+    if w["stem"] in GLOSSARIES:
+        items.append("Glossary of key terms")
+    items.append("Reading")
+    if w["stem"] in REFERENCES:
+        items.append("References")
+    return items
+
+
 def build_pptx(w):
     prs = Presentation(); prs.slide_width = SW; prs.slide_height = SH
     _title_slide(prs, w)
+    _bullet_slide(prs, "Contents", deck_outline(w), small=True)
     _bullet_slide(prs, "Learning Objectives", w["objectives"])
     _bullet_slide(prs, w["lec1"][0], w["lec1"][1])
     _bullet_slide(prs, w["lec2"][0], w["lec2"][1])
@@ -926,6 +944,12 @@ def build_beamer_tex(w):
     L.append(r"\titlegraphic{\includegraphics[width=4.2cm]{%s}}" % LOGO)
     L.append(r"\begin{document}")
     L.append(r"\begin{frame}[plain]\titlepage\begin{center}\tiny " + esc(MENTOR) + r"\end{center}\end{frame}")
+    # contents (table of contents)
+    toc = [r"\small\begin{enumerate}\setlength{\itemsep}{3pt}"]
+    for it in deck_outline(w):
+        toc.append(r"  \item %s" % esc(it))
+    toc.append(r"\end{enumerate}")
+    L.append(r"\begin{frame}{Contents}" + "\n" + "\n".join(toc) + "\n\\end{frame}\n")
     L.append(frame("Learning Objectives", itemize(w["objectives"])))
     L.append(frame(w["lec1"][0], itemize(w["lec1"][1])))
     L.append(frame(w["lec2"][0], itemize(w["lec2"][1])))
